@@ -1,12 +1,14 @@
-en HireBoost — Application Architecture
-HireBoost is a web app for analyzing, translating and optimizing CVs using AI, targeting an international audience.
+<b>en HireBoost — Application Architecture
+HireBoost is a web app for analyzing, translating and optimizing CVs using AI, targeting an international audience.</b>
 
 📊 Architecture Diagram
+
 ![Architecture Diagram](ARCHITECTURE.png)
 
 📃 Module Descriptions:
-Authorization/Registration Service
-Manages user registration and authorization:
+
+<b>Authorization/Registration Service
+Manages user registration and authorization:</b>
 
 Admin
 
@@ -14,8 +16,8 @@ HR
 
 Applicant
 
-Applicant Module
-Allows applicants to:
+<b>Applicant Module
+Allows applicants to:</b>
 
 Upload CV
 
@@ -27,18 +29,26 @@ Translate CV
 
 Generate CV letter
 
-HR Module
-Allows HR to:
+<b>HR Module
+HR personal dashboard:</b>
 
-View applicant responses
+Create and upload job vacancies.
 
-Download CVs
+Upload applicants' CVs.
 
-Resume Download Service
-Handles uploading CVs and saving them to PostgreSQL and filesystem.
+Get AI-powered CV analysis for job fit.
 
-AI Service
-Integrates with OpenAI API:
+Automatic recommendations:
+
+Key points to pay attention to.
+
+Questions to ask during interviews.
+
+<b>Resume Download Service
+Handles uploading CVs and saving them to PostgreSQL and filesystem.</b>
+
+<b>AI Service
+Integrates with OpenAI API:</b>
 
 CV Analysis
 
@@ -48,22 +58,22 @@ Translation
 
 CV Letter Generation
 
-Resume Analyzer
+<b>Resume Analyzer</b>
 Analyzes CVs for job relevance.
 
-Resume Optimizer
+<b>Resume Optimizer</b>
 Optimizes CVs for selected job roles.
 
-Translate Resume
+<b>Translate Resume</b>
 Translates CVs into multiple languages.
 
-CV Letter Generator
+<b>CV Letter Generator</b>
 Generates cover letters based on CV and job role.
 
-PostgreSQL Database
+<b>PostgreSQL Database</b>
 Stores users, resumes, analytics, metadata.
 
-📌 Technologies:
+<b>📌 Technologies:</b>
 Backend: Spring Boot
 
 Frontend: React
@@ -72,17 +82,19 @@ Database: PostgreSQL
 
 AI: OpenAI API
 
+______________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-
-🇷🇺 HireBoost — Архитектура приложения
-HireBoost — это веб-приложение для анализа, перевода и оптимизации резюме с помощью AI, ориентированное на международную аудиторию.
+<b>🇷🇺 HireBoost — Архитектура приложения
+HireBoost — это веб-приложение для анализа, перевода и оптимизации резюме с помощью AI, ориентированное на международную аудиторию.</b>
 
 📊 Схема архитектуры
+
 ![Architecture Diagram](ARCHITECTURE.png)
 
 📃 Описание модулей:
-Authorization/Registration Service
-Управляет регистрацией и авторизацией пользователей:
+
+<b>Authorization/Registration Service
+Управляет регистрацией и авторизацией пользователей:</b>
 
 Администратор
 
@@ -90,8 +102,8 @@ HR-менеджер
 
 Соискатель
 
-Applicant Module
-Позволяет соискателю:
+<b>Applicant Module
+Позволяет соискателю:</b>
 
 Загружать резюме
 
@@ -103,18 +115,26 @@ Applicant Module
 
 Генерировать сопроводительные письма
 
-HR Module
-Позволяет HR:
+<b>HR Module
+Личный кабинет HR-специалиста:</b>
 
-Просматривать отклики
+Создание и загрузка вакансий.
 
-Скачивать резюме
+Загрузка резюме соискателей.
 
-Resume Download Service
+Получение AI-анализа резюме на соответствие вакансии.
+
+Автоматические рекомендации:
+
+На какие пункты обратить внимание.
+
+Какие вопросы задать кандидату на интервью.
+
+<b>Resume Download Service</b>
 Отвечает за загрузку резюме, сохранение в PostgreSQL и файловую систему.
 
-AI Service
-Интеграция с OpenAI API:
+<b>AI Service
+Интеграция с OpenAI API:</b>
 
 Анализ резюме
 
@@ -124,22 +144,22 @@ AI Service
 
 Генерация CV Letter
 
-Resume Analyzer
+<b>Resume Analyzer</b>
 Модуль анализа резюме на соответствие вакансии.
 
-Resume Optimizer
+<b>Resume Optimizer</b>
 Модуль улучшения резюме под вакансию.
 
-Translate Resume
+<b>Translate Resume</b>
 Модуль перевода резюме.
 
-CV Letter Generator
+<b>CV Letter Generator</b>
 Создаёт сопроводительное письмо по шаблону и резюме.
 
-PostgreSQL Database
+<b>PostgreSQL Database</b>
 Хранение пользователей, резюме, отчетов, метаданных.
 
-📌 Технологии:
+<b>📌 Технологии:</b>
 Backend: Spring Boot
 
 Frontend: React

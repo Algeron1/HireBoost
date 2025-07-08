@@ -1,23 +1,50 @@
-# 📈 HireBoost
+📈 HireBoost
+HireBoost is an AI-driven web application for analyzing, translating, and improving résumés, designed for job seekers and HR professionals worldwide.
 
-**HireBoost** is an AI-powered web application for analyzing, translating, and enhancing resumes, built for job seekers around the world.
+📌 Core Features for Job Seekers:
+Upload résumé in text or PDF format
 
-## 📌 Key features:
-- 📑 Upload your resume in text or PDF format
-- 📊 Resume analysis against a selected job position
-- 💡 AI-based suggestions for improving your resume
-- 🌍 Resume translation into any language using neural networks
-- ✍️ Generation of new resume sections based on AI prompts
-- 🔐 User registration and login (Google OAuth planned)
-- 🎁 One free usage of each feature per user
-- 🤝 Referral program
+AI-powered résumé analysis for relevance to a selected profession
 
-## 📚 Tech stack:
-- Java 24
-- Spring Boot 3.5
-- PostgreSQL
-- OpenAI API
-- React + Tailwind 
-- Docker 
+AI recommendations for improving résumé content
 
-## 📂 Project structure:
+Résumé translation into any language using neural networks
+
+Generation of new résumé sections and blocks
+
+User registration and authorization
+
+One free session for all features per user
+
+Referral program
+
+Cover letter generation
+
+📌 Core Features for HR Specialists:
+Registration and authorization
+
+Upload résumé in text or PDF format
+
+Create/upload job postings in personal dashboard
+
+AI-powered primary résumé screening for job match
+
+AI résumé analysis with a list of recommended interview questions
+
+One free session for all features per user
+
+Referral program
+
+📚 Technology Stack:
+Java 24
+
+Spring Boot 3.5
+
+PostgreSQL
+
+OpenAI API
+
+React + Tailwind
+
+Docker
+

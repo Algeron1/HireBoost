@@ -2,8 +2,6 @@
 
 **HireBoost** is an AI-powered web application for analyzing, translating, and enhancing resumes, built for job seekers around the world.
 
-![Architecture Diagram](docs/ARCHITECTURE.png)
-
 ## 📌 Key features:
 - 📑 Upload your resume in text or PDF format
 - 📊 Resume analysis against a selected job position

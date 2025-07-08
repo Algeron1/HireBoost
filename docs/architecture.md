@@ -2,7 +2,7 @@ en HireBoost — Application Architecture
 HireBoost is a web app for analyzing, translating and optimizing CVs using AI, targeting an international audience.
 
 📊 Architecture Diagram
-![Architecture Diagram](docs/ARCHITECTURE.png)
+![Architecture Diagram](ARCHITECTURE.png)
 
 📃 Module Descriptions:
 Authorization/Registration Service
@@ -78,7 +78,7 @@ AI: OpenAI API
 HireBoost — это веб-приложение для анализа, перевода и оптимизации резюме с помощью AI, ориентированное на международную аудиторию.
 
 📊 Схема архитектуры
-![Architecture Diagram](docs/ARCHITECTURE.png)
+![Architecture Diagram](ARCHITECTURE.png)
 
 📃 Описание модулей:
 Authorization/Registration Service

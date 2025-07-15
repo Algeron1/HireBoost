@@ -30,6 +30,10 @@ public class Resume {
     @Column(name = "file_name")
     private String fileName;
 
+    @Lob
+    @Column(name = "file_data")
+    private byte[] fileData;
+
     @Column(name = "language", length = 30)
     private String language;
 

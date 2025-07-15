@@ -12,4 +12,6 @@ public interface ResumeRepository extends JpaRepository<Resume, Long> {
     List<Resume> findAllByUser(User user);
 
     Optional<Resume> findByFileName(String filename);
+
+    Boolean existsByFileName(String filename);
 }

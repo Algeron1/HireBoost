@@ -3,6 +3,7 @@ package com.hireboost.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -30,8 +31,7 @@ public class Resume {
     @Column(name = "file_name")
     private String fileName;
 
-    @Lob
-    @Column(name = "file_data")
+    @Column(name = "file_data", columnDefinition = "bytea")
     private byte[] fileData;
 
     @Column(name = "language", length = 30)
@@ -41,7 +41,8 @@ public class Resume {
     private String profession;
 
     @Column(name = "is_primary")
-    private Boolean isPrimary;
+    @Builder.Default
+    private Boolean isPrimary = false;
 
     @Column(name = "score")
     private String score;

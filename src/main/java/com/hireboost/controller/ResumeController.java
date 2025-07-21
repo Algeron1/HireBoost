@@ -43,6 +43,14 @@ public class ResumeController {
         return resumeService.getAllUserResumes(user);
     }
 
+    @Operation(summary = "Get all resumes for current user")
+    @GetMapping("/user/current/")
+    public List<Resume> getCurrentUserResumes() {
+        User current = userService.getCurrentUser();
+        log.info("Get resumes for user '{}'", current.getUsername());
+        return resumeService.getAllUserResumes(current);
+    }
+
     @Operation(summary = "Get resume by file name")
     @GetMapping("/{fileName}")
     public Resume getResumeByFileName(@PathVariable String fileName) {
@@ -52,10 +60,10 @@ public class ResumeController {
 
     @Operation(summary = "Remove resume by Id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeResumeById(@PathVariable Long Id) {
-        log.info("Remove resume by Id '{}'", Id);
-        resumeService.removeById(Id);
-        return ResponseEntity.ok("Resume with id: " + Id + " was deleted");
+    public ResponseEntity<String> removeResumeById(@PathVariable Long id) {
+        log.info("Remove resume by Id '{}'", id);
+        resumeService.removeById(id);
+        return ResponseEntity.ok("Resume with id: " + id + " was deleted");
     }
 
     @Operation(summary = "Update existing resume by ID")
@@ -93,13 +101,22 @@ public class ResumeController {
         return ResponseEntity.ok(response);
     }
 
-
+    @Operation(summary = "Download selected resume")
     @GetMapping("/download-file/{id}")
     public ResponseEntity<byte[]> downloadResumeFile(@PathVariable Long id) {
         Resume resume = resumeService.getById(id);
         return ResponseEntity.ok()
                 .header("Content-Disposition", "attachment; filename=\"" + resume.getFileName() + "\"")
                 .body(resume.getFileData());
+    }
+
+    @Operation(summary = "Set resume as primary for current user")
+    @PutMapping("/{id}/set-primary/{isPrimary}")
+    public ResponseEntity<String> setResumeAsPrimary(@PathVariable Long id, @PathVariable Boolean isPrimary) {
+        User currentUser = userService.getCurrentUser();
+        log.info("User '{}' is setting resume ID {} as primary", currentUser.getUsername(), id);
+        resumeService.setPrimaryResume(id, currentUser, isPrimary);
+        return ResponseEntity.ok("Resume with ID " + id + " set as primary");
     }
 
 }

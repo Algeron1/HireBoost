@@ -98,14 +98,19 @@ public class ResumeService {
         return repository.save(resume);
     }
 
+    @Transactional
     public String analyzeResume(Long id) {
         Resume resume = getById(id);
-        // Заглушка логики анализа
-        if (resume.getResumeText() != null && resume.getResumeText().length() > 100) {
-            return "Resume is valid";
-        } else {
-            return "Resume is not valid!";
+        if (resume.getResumeText() == null || resume.getResumeText().length() < 100) {
+            return "Resume is too short to analyze!";
         }
+
+        String recommendations = openAiService.fullResumeAnalysis(resume.getResumeText());
+
+        resume.setRecommendations(recommendations);
+        repository.save(resume);
+
+        return recommendations;
     }
 
     @Transactional

@@ -7,6 +7,8 @@ databaseChangeLog:
       file: db/changelog/db.changelog-update-users-table.yaml
   - include:
       file: db/changelog/db.changelog-update-resumes-table-15072025.yaml
+  - include:
+     file: db/changelog/db.changelog-create-cov-letter-table-21072025.yaml
   - changeSet:
       id: 1
       author: edward

@@ -61,4 +61,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
     }
 
+    @ExceptionHandler(FileGenerateException.class)
+    public ResponseEntity<String> handleGenerateLetter(FileGenerateException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
+    }
+
 }

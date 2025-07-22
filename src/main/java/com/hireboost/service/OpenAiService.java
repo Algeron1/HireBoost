@@ -1,6 +1,6 @@
 package com.hireboost.service;
 
-import com.hireboost.promt.ResumePromt;
+import com.hireboost.promt.Promts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class OpenAiService {
 
     public String evaluateResumeScore(String resumeText) {
         try {
-            String prompt = String.format(ResumePromt.RESUME_ANALYZE_PROMT_RU, resumeText);
+            String prompt = String.format(Promts.RESUME_ANALYZE_PROMT_RU, resumeText);
             Map<String, Object> requestBody = createRequestBody(prompt);
 
             ResponseEntity<Map> response = sendRequest(requestBody);
@@ -89,4 +89,49 @@ public class OpenAiService {
                 .map(MatchResult::group)
                 .orElse("0");
     }
+
+    public String fullResumeAnalysis(String resumeText) {
+        try {
+            String prompt = String.format(Promts.RESUME_FULL_ANALYSIS_PROMT_RU, resumeText);
+            Map<String, Object> requestBody = createRequestBody(prompt);
+
+            ResponseEntity<Map> response = sendRequest(requestBody);
+
+            return extractFullTextFromResponse(response.getBody());
+        } catch (RestClientException e) {
+            log.error("Error while calling OpenAI API", e);
+            return "The analysis failed due to an API error.";
+        } catch (Exception e) {
+            log.error("Unexpected error during full resume analysis", e);
+            return "An unexpected error occurred.";
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private String extractFullTextFromResponse(Map<String, Object> responseBody) {
+        try {
+            List<Map<String, Object>> choices = (List<Map<String, Object>>) responseBody.get("choices");
+            Map<String, Object> firstChoice = choices.get(0);
+            Map<String, Object> message = (Map<String, Object>) firstChoice.get("message");
+            return message.get("content").toString();
+        } catch (Exception e) {
+            log.error("Error parsing OpenAI response", e);
+            return "Error parsing OpenAI response";
+        }
+    }
+
+    public String generateText(String prompt) {
+        try {
+            Map<String, Object> requestBody = createRequestBody(prompt);
+            ResponseEntity<Map> response = sendRequest(requestBody);
+            return extractFullTextFromResponse(response.getBody());
+        } catch (RestClientException e) {
+            log.error("Error while calling OpenAI API", e);
+            return "Error while calling OpenAI API";
+        } catch (Exception e) {
+            log.error("Unexpected error during text generation", e);
+            return "Unexpected error during text generation";
+        }
+    }
+
 }

@@ -11,6 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -61,7 +65,12 @@ public class UserService {
     public void promoteCurrentUserToAdmin() {
         User user = getCurrentUser();
         log.warn("Promoting user '{}' to ROLE_ADMIN", user.getUsername());
-        user.setRole(UserRole.ROLE_ADMIN);
+        List<UserRole> userRoles = user.getRoles();
+        if (userRoles.isEmpty()) {
+            userRoles = new ArrayList<>();
+        }
+        userRoles.add(UserRole.ROLE_ADMIN);
+        user.setRoles(userRoles);
         save(user);
     }
 }

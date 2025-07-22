@@ -1,10 +1,13 @@
 package com.hireboost.dto;
 
+import com.hireboost.model.enums.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Schema(description = "Registration request")
@@ -32,5 +35,8 @@ public class SignUpRequest {
     @Schema(description = "lastname", example = "Doe")
     @Size(min=2, max = 40, message = "The lastName length must be between 2 and 40 characters.")
     private String lastname;
+
+    @Schema(description = "List of user roles", example = "ROLE_APPLICANT")
+    private List<UserRole> roles;
 
 }

@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: edward
+      changes:
+        - createTable:
+            tableName: coverage_letters
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: letter_text
+                  type: TEXT
+              - column:
+                  name: language
+                  type: VARCHAR(30)
+              - column:
+                  name: company
+                  type: VARCHAR(100)
+              - column:
+                  name: profession
+                  type: VARCHAR(100)
+              - column:
+                  name: file_type
+                  type: VARCHAR(20)
+              - column:
+                  name: file_name
+                  type: VARCHAR(255)
+              - column:
+                  name: file_data
+                  type: BYTEA
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: coverage_letters
+            baseColumnNames: resume_id
+            constraintName: fk_coverage_letter_resume
+            referencedTableName: resumes
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 5
+      author: edward
+      changes:
+        - dropColumn:
+            columnName: role
+            tableName: users
+
+  - changeSet:
+      id: 6
+      author: edward
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: user_roles
+            baseColumnNames: user_id
+            constraintName: fk_user_roles_user
+            referencedTableName: users
+            referencedColumnNames: id

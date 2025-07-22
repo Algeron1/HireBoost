@@ -1,10 +1,12 @@
 package com.hireboost.service;
 
+import com.hireboost.dto.ResumeTranslateRequest;
 import com.hireboost.dto.ResumeUpdateRequest;
 import com.hireboost.dto.ResumeUploadRequest;
 import com.hireboost.exception.*;
 import com.hireboost.model.Resume;
 import com.hireboost.model.User;
+import com.hireboost.promt.Promts;
 import com.hireboost.repository.ResumeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +26,7 @@ public class ResumeService {
     private final UserService userService;
     private final AiParserService aiParserService;
     private final OpenAiService openAiService;
+    private final FileService fileService;
 
     @Transactional
     public Resume save(ResumeUploadRequest request) {
@@ -165,6 +169,29 @@ public class ResumeService {
             repository.save(selected);
         } catch (Exception e) {
             throw new ResumeUpdateException("Error while updating resume");
+        }
+    }
+
+    public Resume translateResume(ResumeTranslateRequest request) {
+        Resume selectedResume = repository.findById(request.getId())
+                .orElseThrow(() -> new ResumeNotFoundException("Resume for translate not found"));
+
+        try {
+            String translatePromt = Promts.TRANSLATE_RESUME_TO_ENGLISH.formatted(selectedResume.getResumeText());
+            String translatedText = openAiService.generateText(translatePromt);
+            byte[] fileBytes = fileService.generateFile(translatedText, request.getFileType());
+            Resume translatedResume = new Resume();
+            translatedResume.setResumeText(translatedText);
+            translatedResume.setFileData(fileBytes);
+            translatedResume.setUser(selectedResume.getUser());
+            translatedResume.setScore(selectedResume.getScore());
+            translatedResume.setCreatedAt(LocalDateTime.now());
+            translatedResume.setFileName("translated_" + selectedResume.getId() + "." + request.getFileType().toString().toLowerCase());
+            repository.save(translatedResume);
+            return translatedResume;
+        } catch (Exception e) {
+            log.error("Error while translating resume: {}", request.getId());
+            throw new ResumeUpdateException("Error while translating resume");
         }
     }
 

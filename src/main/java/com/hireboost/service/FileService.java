@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 
 @Slf4j
 @Service
-public class LetterFileService {
+public class FileService {
 
     public byte[] generateFile(String content, FileType fileType) {
         return switch (fileType) {

@@ -1,6 +1,7 @@
 package com.hireboost.controller;
 
 import com.hireboost.dto.ResumeFileParseResponse;
+import com.hireboost.dto.ResumeTranslateRequest;
 import com.hireboost.dto.ResumeUpdateRequest;
 import com.hireboost.dto.ResumeUploadRequest;
 import com.hireboost.model.Resume;
@@ -117,6 +118,13 @@ public class ResumeController {
         log.info("User '{}' is setting resume ID {} as primary", currentUser.getUsername(), id);
         resumeService.setPrimaryResume(id, currentUser, isPrimary);
         return ResponseEntity.ok("Resume with ID " + id + " set as primary");
+    }
+
+    @Operation(summary = "Translate resume on selected language")
+    @PostMapping("/translate")
+    public Resume translateResume(@RequestBody @Valid ResumeTranslateRequest request) {
+        log.info("Translating resume with id '{}'", request.getId());
+        return resumeService.translateResume(request);
     }
 
 }

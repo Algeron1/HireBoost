@@ -24,7 +24,7 @@ public class CovLetterService {
     private final ResumeService resumeService;
     private final OpenAiService openAiService;
     private final CoverageLetterRepository coverageLetterRepository;
-    private final LetterFileService letterFileService;
+    private final FileService letterFileService;
 
     @Transactional
     public CoverageLetter generateAndSaveCoverLetter(LetterGenerationRequest request) {

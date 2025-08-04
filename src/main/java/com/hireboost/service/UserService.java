@@ -3,7 +3,7 @@ package com.hireboost.service;
 import com.hireboost.exception.UserAlreadyExistsException;
 import com.hireboost.exception.UserNotFoundException;
 import com.hireboost.model.User;
-import com.hireboost.model.enums.UserRole;
+import com.hireboost.model.enums.Role;
 import com.hireboost.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,11 +64,11 @@ public class UserService {
     public void promoteCurrentUserToAdmin() {
         User user = getCurrentUser();
         log.warn("Promoting user '{}' to ROLE_ADMIN", user.getUsername());
-        List<UserRole> userRoles = user.getRoles();
+        List<Role> userRoles = user.getRoles();
         if (userRoles.isEmpty()) {
             userRoles = new ArrayList<>();
         }
-        userRoles.add(UserRole.ROLE_ADMIN);
+        userRoles.add(Role.ROLE_ADMIN);
         user.setRoles(userRoles);
         save(user);
     }

@@ -127,4 +127,11 @@ public class ResumeController {
         return resumeService.translateResume(request);
     }
 
+    @Operation(summary = "Optimize resume")
+    @PutMapping("/optimize/{id}")
+    public Resume optimizeResumeById(@PathVariable Long id) {
+        log.info("Optimizing resume with id '{}'", id);
+        return resumeService.optimizeResumeById(id);
+    }
+
 }

@@ -4,7 +4,6 @@ import com.hireboost.dto.JwtAuthenticationResponse;
 import com.hireboost.dto.SignInRequest;
 import com.hireboost.dto.SignUpRequest;
 import com.hireboost.model.User;
-import com.hireboost.model.enums.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

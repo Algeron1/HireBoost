@@ -9,12 +9,15 @@ import lombok.Data;
 @Schema(description = "Resume upload request")
 public class ResumeUploadRequest {
 
+    @Schema(description = "Vacancy id")
+    private Long vacancyId;
+
     @Schema(description = "Resume text")
     @NotBlank(message = "Resume cannot be empty")
     private String resumeText;
 
     @Schema(description = "File name", example = "resume_1")
-    @Size(min = 3, max = 30, message = "File name must be kept between 3 and 30 characters.")
+    @Size(min = 3, max = 50, message = "File name must be kept between 3 and 50 characters.")
     @NotBlank(message = "File cannot be empty")
     private String fileName;
 

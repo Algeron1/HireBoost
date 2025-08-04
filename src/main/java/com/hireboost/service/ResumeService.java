@@ -6,6 +6,7 @@ import com.hireboost.dto.ResumeUploadRequest;
 import com.hireboost.exception.*;
 import com.hireboost.model.Resume;
 import com.hireboost.model.User;
+import com.hireboost.model.enums.FileType;
 import com.hireboost.promt.Promts;
 import com.hireboost.repository.ResumeRepository;
 import lombok.RequiredArgsConstructor;
@@ -112,6 +113,7 @@ public class ResumeService {
         String recommendations = openAiService.fullResumeAnalysis(resume.getResumeText());
 
         resume.setRecommendations(recommendations);
+        resume.setScore(openAiService.evaluateResumeScore(resume.getResumeText()));
         repository.save(resume);
 
         return recommendations;
@@ -172,6 +174,7 @@ public class ResumeService {
         }
     }
 
+    @Transactional
     public Resume translateResume(ResumeTranslateRequest request) {
         Resume selectedResume = repository.findById(request.getId())
                 .orElseThrow(() -> new ResumeNotFoundException("Resume for translate not found"));
@@ -192,6 +195,30 @@ public class ResumeService {
         } catch (Exception e) {
             log.error("Error while translating resume: {}", request.getId());
             throw new ResumeUpdateException("Error while translating resume");
+        }
+    }
+
+    @Transactional
+    public Resume optimizeResumeById(Long id) {
+        Resume selectedResume = repository.findById(id)
+                .orElseThrow(() -> new ResumeNotFoundException("Resume for optimizing not found"));
+
+        try {
+            String optimizingPromt = Promts.RESUME_OPTIMIZE_RU.formatted(selectedResume.getResumeText());
+            String translatedText = openAiService.generateText(optimizingPromt);
+            byte[] fileBytes = fileService.generateFile(translatedText, FileType.PDF);
+            Resume translatedResume = new Resume();
+            translatedResume.setResumeText(translatedText);
+            translatedResume.setFileData(fileBytes);
+            translatedResume.setUser(selectedResume.getUser());
+            translatedResume.setScore(selectedResume.getScore());
+            translatedResume.setCreatedAt(LocalDateTime.now());
+            translatedResume.setFileName("optimized_" + selectedResume.getFileName());
+            repository.save(translatedResume);
+            return translatedResume;
+        } catch (Exception e) {
+            log.error("Error while optimizing resume: {}", id);
+            throw new ResumeUpdateException("Error while optimizing resume");
         }
     }
 

@@ -66,4 +66,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
     }
 
+    @ExceptionHandler(VacancyNotFoundException.class)
+    public ResponseEntity<String> handleVacancyNotFound(VacancyNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(VacancyAlreadyExistsException.class)
+    public ResponseEntity<String> handleVacancyExists(VacancyAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
+    }
+
 }

@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 12
+      author: edward
+      changes:
+        - createTable:
+            tableName: vacancy_score
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resumes_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_vacancy_score_resume
+                    references: resumes(id)
+              - column:
+                  name: vacancy_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_vacancy_score_vacancy
+                    references: vacancy(id)
+              - column:
+                  name: score
+                  type: varchar(255)
+              - column:
+                  name: summary
+                  type: text
+              - column:
+                  name: questions
+                  type: text
+
+  - changeSet:
+      id: 13
+      author: edward
+      changes:
+        - sql:
+            sql: ALTER TABLE vacancy_score DROP CONSTRAINT IF EXISTS vacancy_score_vacancy_id_key
+        - sql:
+            sql: DROP INDEX IF EXISTS idx_vacancy_score_vacancy_id_unique
+  - changeSet:
+      id: 14
+      author: edward
+      changes:
+        - sql:
+            sql: ALTER TABLE vacancy_score DROP CONSTRAINT IF EXISTS vacancy_score_resumes_id_key
+        - sql:
+            sql: DROP INDEX IF EXISTS idx_vacancy_score_resumes_id_unique

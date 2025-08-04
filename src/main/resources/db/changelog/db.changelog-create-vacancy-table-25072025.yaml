@@ -1,0 +1,118 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: edward
+      changes:
+        - createTable:
+            tableName: vacancy
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: recommendations
+                  type: TEXT
+
+              - column:
+                  name: score
+                  type: VARCHAR(255)
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+
+              - column:
+                  name: company
+                  type: VARCHAR(255)
+
+              - column:
+                  name: description
+                  type: TEXT
+
+              - column:
+                  name: salary_amount
+                  type: NUMERIC(19, 2)
+
+              - column:
+                  name: salary_currency
+                  type: VARCHAR(3)
+
+              - column:
+                  name: file_name
+                  type: VARCHAR(255)
+
+              - column:
+                  name: file_data
+                  type: bytea
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: file_type
+                  type: VARCHAR(20)
+
+        - addForeignKeyConstraint:
+            baseTableName: vacancy
+            baseColumnNames: user_id
+            constraintName: fk_vacancy_user
+            referencedTableName: users
+            referencedColumnNames: id
+            validate: true
+
+  - changeSet:
+      id: 8
+      author: edward
+      changes:
+        - addColumn:
+            tableName: resumes
+            columns:
+              - column:
+                  name: vacancy_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_resume_vacancy
+                    references: vacancy(id)
+  - changeSet:
+      id: 10
+      author: edward
+      changes:
+        - modifyDataType:
+            tableName: vacancy
+            columnName: salary_amount
+            newDataType: NUMERIC(19, 2)
+  - changeSet:
+      id: 11
+      author: edward
+      changes:
+        - addColumn:
+            tableName: vacancy
+            columns:
+              - column:
+                  name: text
+                  type: TEXT
+                  constraints:
+                    nullable: true

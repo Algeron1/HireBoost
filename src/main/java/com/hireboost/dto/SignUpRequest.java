@@ -1,6 +1,6 @@
 package com.hireboost.dto;
 
-import com.hireboost.model.enums.UserRole;
+import com.hireboost.model.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +37,6 @@ public class SignUpRequest {
     private String lastname;
 
     @Schema(description = "List of user roles", example = "ROLE_APPLICANT")
-    private List<UserRole> roles;
+    private List<Role> roles;
 
 }
